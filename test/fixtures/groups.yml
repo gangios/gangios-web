@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  groupname: MyString
+  permission: 
+  status: 1
+  description: MyText
+
+two:
+  groupname: MyString
+  permission: 
+  status: 1
+  description: MyText
