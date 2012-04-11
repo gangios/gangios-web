@@ -1,0 +1,19 @@
+html {
+	background-image: none;
+}
+#versionBar {
+	background-color:#212121;
+	position:fixed;
+	width:100%;
+	height:35px;
+	bottom:0;
+	left:0;
+	text-align:center;
+	line-height:35px;
+}
+.copyright{
+	text-align:center; font-size:10px; color:#CCC;
+}
+.copyright a{
+	color:#A31F1A; text-decoration:none
+}    

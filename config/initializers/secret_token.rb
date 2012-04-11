@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-GangiosWeb::Application.config.secret_token = '6c2f83188ac8fcf27a9a415ff094665114a98d455bff9e4ceda1c4c5b718a14dc7d517e46440690ffc3fffdf5cb44631bf76a966243e48ad5bb8ccce95ecbea9'
+GangiosWeb::Application.config.secret_token = '988975a85c5604c1dec626130b1fc05a36c92199ca5751f9d4daa5bd56c9edf2bde8ddc73ff694437d26e156215c768d712b83010dc8b8cd30f4442565451ca8'

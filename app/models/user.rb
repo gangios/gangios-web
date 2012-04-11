@@ -1,66 +1,62 @@
-require 'digest/sha1'
-
 class User
-	include Mongoid::Document
-	include Mongoid::Timestamps
+  include Mongoid::Document
+  # Include default devise modules. Others available are:
+  # :validatable, :token_authenticatable, :encryptable,
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable
 
-	attr_protected :salt
-	
-	validates_length_of :username, :within => 3..40
-	validates_length_of :password, :within => 5..40
-	validates_presence_of :password_confirmation, :group_id
-	validates_uniqueness_of :username
-	validates_confirmation_of :password
+  ## Database authenticatable
+  field :username,           :type => String, :null => false, :default => ""
+  field :encrypted_password, :type => String, :null => false, :default => ""
 
-	before_save :save_hashed_password
+  ## Custom fields
+  field :status,      :type => Integer, default: 0
+  field :description, :type => String
 
-	field :username, type: String
-	field :password, type: String
-	field :salt, type: String
-	field :status, type: Integer, default: 0
-	field :description, type: String
+  ## Timestamps create_at & update_at
+  include Mongoid::Timestamps
 
-	belongs_to :group
+  ## Recoverable
+  field :reset_password_token,   :type => String
+  field :reset_password_sent_at, :type => Time
 
+  ## Rememberable
+  field :remember_created_at, :type => Time
 
-  def self.authenticate(username, password)
-    u = find(:first, conditions: {username: username})
-	  return nil if u.nil?
-	  return u if User.encrypt(password, u.salt) == u.password
-	  nil
-  end
+  ## Trackable
+  field :sign_in_count,      :type => Integer, :default => 0
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String
 
-	protected
+  belongs_to :group
 
-	def save_hashed_password
-		self.salt = User.random_string(10) if !self.salt?
-		self.password = User.encrypt(self.password, self.salt)
-	end
+  validates_presence_of     :username
+  validates_presence_of     :password, on: :create
+  # , :group_id
+  validates_uniqueness_of   :username
+  # validates_presence_of :password_confirmation
+  validates_length_of       :username, :within => 3..20, allow_blank: true
+  validates_length_of       :password, :minimum => 3, allow_blank: true, on: :create
+  validates_confirmation_of :password
+  validates_associated      :group
 
-	def groupname=(groupname)
-		g = Group.find(:first, conditions: {groupname: groupname})
-		if g.nil? then
-			self.errors.add :groupname, "is not valid"
-			self.group_id = nil
-		else
-			self.group_id = g._id
-		end
-	end
+  ## Encryptable
+  # field :password_salt, :type => String
 
-	def self.random_string(len)
-		# generate a random password consisting of strings and digits
-		chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+  ## Confirmable
+  # field :confirmation_token,   :type => String
+  # field :confirmed_at,         :type => Time
+  # field :confirmation_sent_at, :type => Time
+  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
 
-		newpass = ""
-		len.times do |i|
-			newpass << chars[rand(chars.size-1)]
-		end
+  ## Lockable
+  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
+  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
+  # field :locked_at,       :type => Time
 
-		return newpass
-	end
-
-	def self.encrypt(pass, salt)
-		Digest::SHA1.hexdigest(pass+salt)
-	end
-
+  ## Token authenticatable
+  # field :authentication_token, :type => String
 end

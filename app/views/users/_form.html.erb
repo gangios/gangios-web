@@ -1,7 +1,9 @@
-<%= form_for(@user) do |f| %>
+<%= javascript_include_tag "form" %>
+
+<%= form_for(@user, :html => {:class => "validation"}) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this host from being saved:</h2>
 
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -11,23 +13,37 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
+  <div class="section">
+  <label> Login  Account  <small>Text custom</small></label>
+  <div>
+  <%= f.text_field :username, :class => "validate[required,minSize[3],maxSize[20]] medium" %>
+  <label>Username</label>
+  <span class="f_help"> Username login or register. <br />Should be between 3 and not more than 20 characters.</span> 
   </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
+  <div>
+  <%= f.password_field :password, :class => "validate[required,minSize[3]] medium" %>
+  <label>Password</label>
   </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
+  <div>
+  <%= f.password_field :password_confirmation, :class => "validate[required,equals[user_password]] medium" %>
+  <label>Confirm Password</label>
+  <span class="f_help"> Your password should be at least 6 characters.</span>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
   </div>
+  
+<!--   <div class="section">
+  <label> URL validate<small>Text custom</small></label>   
+  <div> 
+  <input type="text" class="validate[required,custom[url]] large" name="url_required" id="url_required" value="http://">
+  </div>
+  </div> -->
+  <div class="section last">
+  <div>
+    <%= f.submit :class => "uibutton submit_form" %>
+  </div>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
   </div>
+
 <% end %>

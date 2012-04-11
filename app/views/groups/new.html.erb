@@ -1,5 +1,60 @@
-<h1>New group</h1>
+<h1>New user</h1>
+
+
+  <div class="show_form" >
+
+  <ul class="uibutton-group" >
+    <li><span class="tip"><a class="uibutton icon prev on_prev " id="on_prev_pro" title="Go Back" >Go Back</a></span></li>
+    <li><span class="tip"><a class="uibutton special" onClick="ResetForm()" title="Reset Form">Clear Form</a></span></li>
+  </ul>
+   <form id="validation_user" class="validation" action=""> 
+  
+      <div class="section">
+      <label> input size<small>Text custom</small></label>   
+      <div> 
+      <input type="text" class="validate[required] large" name="f_required" id="f_required">
+      </div>
+      <div> 
+      <input type="text" name="menu" id="menu"  class="validate[required,custom[onlyLetterSp]] small" />
+      <span class="f_help">OnlyLetterSp</span>
+      </div>
+      </div>
+      <div class="section">
+      <label> Email validate<small>Text custom</small></label>   
+      <div> 
+      <input type="text" class="validate[required,custom[email]]  large" name="e_required" id="e_required">
+      </div>
+      </div>
+      <div class="section">
+      <label> Login  Account  <small>Text custom</small></label>
+      <div>
+      <input type="text"  name="username" id="username" class="validate[required,minSize[3],maxSize[20]] medium"  /><label>Username</label>
+      <span class="f_help"> Username login or register. <br />Should be between 3 and not more than 20 characters.</span> 
+      </div>
+      <div>
+      <input type="password"  class="validate[required,minSize[3]] medium"  name="password" id="password"  /><label>Password</label>
+      </div>
+      <div>
+      <input type="password" class="validate[required,equals[password]] medium"  name="passwordCon" id="passwordCon"  /><label>Confirm Password</label>
+        <span class="f_help"> Your password should be at least 6 characters.</span>
+      </div>
+      </div>
+      <div class="section">
+      <label> URL validate<small>Text custom</small></label>   
+      <div> 
+      <input type="text" class="validate[required,custom[url]] large" name="url_required" id="url_required" value="http://">
+      </div>
+      </div>
+      <div class="sectionlast">
+      <div>
+      <a class="uibutton submit_form" >submitForm</a>
+     </div>
+     </div>
+  </form>
+   
+  </div> 
+
 
 <%= render 'form' %>
 
-<%= link_to 'Back', groups_path %>
+<%= link_to 'Back', users_path %>

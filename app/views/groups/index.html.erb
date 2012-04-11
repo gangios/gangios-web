@@ -1,29 +1,144 @@
-<h1>Listing groups</h1>
+<div class="onecolumn" >
+<div class="header"><span ><span class="ico gray connect"></span>Access Control </span> </div><!-- End header --> 
+<div class="clear"></div>
+
+<div class="content" id="tab_content">
+
+  <div id="uploadTab">
+  <ul class="tabs" >
+    <li ><a href="#tab1" id="1">  Users  </a></li>  
+    <li ><a href="#tab2" id="2">  Groups  </a></li>
+  </ul>
+
+
+  <div class="tab_container">
+
+    <div id="tab1" class="tab_content"> 
+			<div class="load_page">
+      <ul class="uibutton-group">
+          <li><span class="tip"><a href="<%= new_user_path %>" class="uibutton icon add on_load">Add User</a></span></li>
+          <li><a class="uibutton special DeleteAll">Delete</a></li>
+      </ul>
+      <form class="tableName toolbar">
+
+      <h3>Listing users</h3>
+      <table class="display data_table" id="data_table1">
+        <thead>
+        <tr>
+          <th width="50" ><input type="checkbox" id="checkAll1" class="checkAll"></th>
+          <th width="150" align="left">Name</th>
+          <th width="150">Group</th>
+          <th width="150">Status</th>
+          <th width="400">Description</th>
+          <th width="100">Management</th>
+        </tr>
+        </thead>
+        <tbody>
+
+      <% @users.each_with_index do |user, index| %>
+        <tr>
+          <td width="35" ><input type="checkbox" name="checkbox[]" class="chkbox" id="user<%= user._id %>"></td>
+          <td align="left"><%= user.username %></td>
+          <td ><%= if user.group then user.group.groupname else "Unknown" end %></td>
+          <td ><%= user.status %></td>
+          <td ><%= user.description %></td>
+          <td>
+          <span class="tip" >
+            <a  title="Edit" >
+              <img src="images/icon/icon_edit.png" >
+            </a>
+          </span> 
+          <span class="tip" >
+            <a id="1" class="Delete" name="Band ring" title="Delete"  >
+              <img src="images/icon/icon_delete.png" >
+            </a>
+          </span> 
+          </td>
+        </tr>
+			<% end %>
+
+        </tbody>
+      </table>
+      </form>
+      </div>
+    </div><!--tab1-->
+    
+    
+    <div id="tab2" class="tab_content"> 
+			<div class="load_page">
+      <ul class="uibutton-group">
+          <li><span class="tip"><a href="<%= new_group_path %>" class="uibutton icon add on_load">Add Group</a></span></li>
+          <li><a class="uibutton special DeleteAll">Delete</a></li>
+      </ul>
+      <form class="tableName toolbar">
+
+      <h3>Listing groups</h3>
+      <table class="display data_table" id="data_table2">
+        <thead>
+        <tr>
+          <th width="50" ><input type="checkbox" id="checkAll2" class="checkAll"></th>
+          <th width="150" align="left">Name</th>
+          <th width="150">Status</th>
+          <th width="400">Description</th>
+          <th width="100">Management</th>
+        </tr>
+        </thead>
+        <tbody>
+
+      <% @groups.each_with_index do |group, index| %>
+        <tr>
+          <td width="35" ><input type="checkbox" name="checkbox[]" class="chkbox" id="group<%= group._id %>"></td>
+          <td align="left"><%= group.groupname %></td>
+          <td ><%= group.status %></td>
+          <td ><%= group.description %></td>
+          <td>
+          <span class="tip" >
+            <a  title="Edit" >
+              <img src="images/icon/icon_edit.png" >
+            </a>
+          </span> 
+          <span class="tip" >
+            <a id="1" class="Delete" name="Band ring" title="Delete"  >
+              <img src="images/icon/icon_delete.png" >
+            </a>
+          </span> 
+          </td>
+        </tr>
+			<% end %>
+
+        </tbody>
+      </table>
+      </form>
+      </div>
+    </div><!--tab2-->
+    
+</div>
+</div><!--/END TAB/-->
+<div class="clear"></div>
+</div>
+
+<div class="content" id="show_form" style="display:none"></div> 
+
+</div>
 
 <table>
   <tr>
-    <th>Groupname</th>
-    <th>Permission</th>
-    <th>Status</th>
-    <th>Description</th>
+    <th>Name</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @groups.each do |group| %>
+<% @users.each do |user| %>
   <tr>
-    <td><%= group.groupname %></td>
-    <td><%= group.permission %></td>
-    <td><%= group.status %></td>
-    <td><%= group.description %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= user.username %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'New Host', new_user_path %>

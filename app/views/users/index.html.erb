@@ -1,29 +1,129 @@
-<h1>Listing users</h1>
+<%= javascript_include_tag controller_name %>
 
-<table>
-  <tr>
-    <th>Username</th>
-    <th>Password</th>
-    <th>Status</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="onecolumn">
+<div class="header"><span ><span class="ico gray connect"></span>Access Control </span> </div><!-- End header --> 
+<div class="clear"></div>
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.username %></td>
-    <td><%= user.password %></td>
-    <td><%= user.status %></td>
-    <td><%= user.description %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="content" id="tab_content">
 
-<br />
+  <div id="uploadTab">
+  <ul class="tabs" >
+    <li ><a href="#tab1" id="1">  Users  </a></li>  
+    <li ><a href="#tab2" id="2">  Groups  </a></li>
+  </ul>
 
-<%= link_to 'New User', new_user_path %>
+
+  <div class="tab_container">
+
+    <div id="tab1" class="tab_content"> 
+			<div class="load_page">
+      <ul class="uibutton-group">
+          <li><span class="tip"><a href="<%= new_user_path %>" class="uibutton icon add on_load">Add User</a></span></li>
+          <li><a class="uibutton special DeleteAll">Delete</a></li>
+      </ul>
+      <form class="tableName toolbar">
+
+      <h3>Listing users</h3>
+      <table class="display data_table" id="data_table1">
+        <thead>
+        <tr>
+          <th width="100" ><input type="checkbox" id="checkAll1" class="checkAll"></th>
+          <th width="150" align="left">Name</th>
+          <th width="150">Group</th>
+          <th width="150">Status</th>
+          <th width="400">Description</th>
+          <th width="100">Management</th>
+        </tr>
+        </thead>
+        <tbody>
+
+      <% @users.each_with_index do |user, index| %>
+        <tr>
+          <td width="35" ><input type="checkbox" name="checkbox[]" class="chkbox" id="user<%= user._id %>"></td>
+          <td align="left"><%= user.username %></td>
+          <td ><%= if user.group then user.group.groupname else "Unknown" end %></td>
+          <td ><%= user.status %></td>
+          <td ><%= user.description %></td>
+          <td>
+          <span class="tip" >
+            <a href="<%= edit_user_path(user) %>" class="on_load" title="Edit" >
+              <img src="images/icon/icon_edit.png" >
+            </a>
+          </span> 
+          <span class="tip" >
+            <a href="users/<%= user._id %>" name="<%= user.username %>" class="Delete" title="Delete">
+              <img src="images/icon/icon_delete.png" >
+            </a>
+          </span> 
+          </td>
+        </tr>
+			<% end %>
+
+        </tbody>
+      </table>
+      </form>
+      </div>
+    </div><!--tab1-->
+    
+    
+    <div id="tab2" class="tab_content"> 
+			<div class="load_page">
+      <ul class="uibutton-group">
+          <li><span class="tip"><a href="<%= new_group_path %>" class="uibutton icon add on_load">Add Group</a></span></li>
+          <li><a class="uibutton special DeleteAll">Delete</a></li>
+      </ul>
+      <form class="tableName toolbar">
+
+      <h3>Listing groups</h3>
+      <table class="display data_table" id="data_table2">
+        <thead>
+        <tr>
+          <th width="100" ><input type="checkbox" id="checkAll2" class="checkAll"></th>
+          <th width="150" align="left">Name</th>
+          <th width="150">Status</th>
+          <th width="400">Description</th>
+          <th width="100">Management</th>
+        </tr>
+        </thead>
+        <tbody>
+
+      <% @groups.each_with_index do |group, index| %>
+        <tr>
+          <td width="35" ><input type="checkbox" name="checkbox[]" class="chkbox" id="group<%= group._id %>"></td>
+          <td align="left"><%= group.groupname %></td>
+          <td ><%= group.status %></td>
+          <td ><%= group.description %></td>
+          <td>
+          <span class="tip" >
+            <a href="<%= edit_group_path(group) %>" title="Edit" >
+              <img src="images/icon/icon_edit.png" >
+            </a>
+          </span> 
+          <span class="tip" >
+            <a href="users/<%= group._id %>" name="<%= group.groupname %>" class="Delete" title="Delete">
+              <img src="images/icon/icon_delete.png" >
+            </a>
+          </span> 
+          </td>
+        </tr>
+			<% end %>
+
+        </tbody>
+      </table>
+      </form>
+      </div>
+    </div><!--tab2-->
+    
+</div>
+</div><!--/END TAB/-->
+<div class="clear"></div>
+</div>
+
+<div class="content" id="show_form" style="display:none">
+<ul class="uibutton-group">
+  <li><span class="tip"><a class="uibutton icon prev on_prev " id="on_prev_pro" title="Go Back" >Go Back</a></span></li>
+  <li><span class="tip"><a class="uibutton special" onClick="ResetForm()" title="Reset Form">Clear Form</a></span></li>
+</ul>
+<div id="load_form"></div>
+</div>
+</div>

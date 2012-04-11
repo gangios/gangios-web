@@ -1,0 +1,35 @@
+<%= form_for(resource, :as => resource_name, :html => {:name => "formLogin", :id => "formLogin"}, :url => session_path(resource_name)) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="tip username_ico"><%= f.text_field :username, :id => "username", :title => "username" %></div>
+
+  <div class="tip password_ico"><%= f.password_field :password, :id => "password", :title => "password" %></div>
+
+  <div style="padding:20px 0px 0px 0px ;">
+    <div style="float:left; padding:0px 0px 2px 0px ;">
+      <% if devise_mapping.rememberable? -%>
+        <%= f.check_box :remember_me, :id => "on_off", :class => "on_off_checkbox" %>
+        <%= f.label :remember_me, :class => "f_help" %>
+      <% end -%>
+    </div>
+    <div style="float:right;padding:2px 0px ;">
+      <div> 
+        <ul class="uibutton-group">
+          <li><%= f.submit "sign in", :class => "uibutton normal", :id => "btn_login" %></li>
+          <li><a class="uibutton normal" href="#" id="forgetpass">forpassword</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<% end %>

@@ -1,25 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Groupname:</b>
-  <%= @group.groupname %>
-</p>
-
-<p>
-  <b>Permission:</b>
-  <%= @group.permission %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%= @group.status %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @group.description %>
+  <b>Name:</b>
+  <%= @user.username %>
 </p>
 
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
